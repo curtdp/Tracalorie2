@@ -84,6 +84,8 @@ const UICtrl = (function() {
       };
     },
     addListItem(item) {
+      // Show the list
+      document.querySelector(UISelectors.itemList).style.display = "block";
       // Create li element
       const li = document.createElement("li");
       // Add Class
@@ -104,6 +106,9 @@ const UICtrl = (function() {
     clearInput() {
       document.querySelector(UISelectors.itemNameInput).value = "";
       document.querySelector(UISelectors.itemCaloriesInput).value = "";
+    },
+    hideList() {
+      document.querySelector(UISelectors.itemList).style.display = "none";
     },
     getSelectors() {
       return UISelectors;
@@ -150,8 +155,13 @@ const App = (function(ItemCtrl, UICtrl) {
       // Fetch items from data structure
       const items = ItemCtrl.getItems();
 
-      // Populate List with items
-      UICtrl.populateItemList(items);
+      // Check if any items
+      if (items.length === 0) {
+        UICtrl.hideList();
+      } else {
+        // Populate List with items
+        UICtrl.populateItemList(items);
+      }
 
       // Load event listeners
       loadEventListeners();
