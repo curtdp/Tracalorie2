@@ -150,6 +150,11 @@ const App = (function(ItemCtrl, UICtrl) {
     document
       .querySelector(UISelectors.addBtn)
       .addEventListener("click", itemAddSubmit);
+
+    // Edit Btn click event
+    document
+      .querySelector(UISelectors.itemList)
+      .addEventListener("click", itemUpdateSubmit);
   };
 
   // Add item submit
@@ -171,6 +176,15 @@ const App = (function(ItemCtrl, UICtrl) {
       UICtrl.showTotalCalories(totalCalories);
       // Clear Fields
       UICtrl.clearInput();
+    }
+
+    e.preventDefault();
+  };
+
+  // Update item submit
+  const itemUpdateSubmit = function(e) {
+    if (e.target.classList.contains("edit-item")) {
+      console.log("test");
     }
 
     e.preventDefault();
