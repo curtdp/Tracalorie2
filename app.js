@@ -101,6 +101,10 @@ const UICtrl = (function() {
         .querySelector(UISelectors.itemList)
         .insertAdjacentElement("beforeend", li);
     },
+    clearInput() {
+      document.querySelector(UISelectors.itemNameInput).value = "";
+      document.querySelector(UISelectors.itemCaloriesInput).value = "";
+    },
     getSelectors() {
       return UISelectors;
     },
@@ -132,6 +136,9 @@ const App = (function(ItemCtrl, UICtrl) {
 
       // Add item to UI list
       UICtrl.addListItem(newItem);
+
+      // Clear Fields
+      UICtrl.clearInput();
     }
 
     e.preventDefault();
