@@ -36,6 +36,7 @@ const ItemCtrl = (function() {
 const UICtrl = (function() {
   const UISelectors = {
     itemList: "#item-list",
+    addBtn: ".add-btn",
   };
   // Public Methods
   return {
@@ -54,11 +55,31 @@ const UICtrl = (function() {
       // Insert List Items
       document.querySelector(UISelectors.itemList).innerHTML = html;
     },
+    getSelectors() {
+      return UISelectors;
+    },
   };
 })();
 
 // App Controller
 const App = (function(ItemCtrl, UICtrl) {
+  // Load Event Listeners
+  const loadEventListeners = function() {
+    // Get UI selectors
+    const UISelectors = UICtrl.getSelectors();
+
+    // Add item event
+    document
+      .querySelector(UISelectors.addBtn)
+      .addEventListener("click", itemAddSubmit);
+  };
+
+  // Add item submit
+  const itemAddSubmit = function(e) {
+    e.preventDefault();
+    console.log("Add");
+  };
+
   // Public Methods
   return {
     init() {
@@ -67,6 +88,9 @@ const App = (function(ItemCtrl, UICtrl) {
 
       // Populate List with items
       UICtrl.populateItemList(items);
+
+      // Load event listeners
+      loadEventListeners();
     },
   };
 })(ItemCtrl, UICtrl);
