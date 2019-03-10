@@ -48,6 +48,8 @@ const UICtrl = (function() {
         </li>
         `;
       });
+      // Insert List Items
+      document.querySelector("#item-list").innerHTML = html;
     },
   };
 })();
