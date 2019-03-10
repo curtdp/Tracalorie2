@@ -54,6 +54,9 @@ const ItemCtrl = (function() {
       // Loop trough items
       return data.items.find(item => item.id === id);
     },
+    setCurrentItem(item) {
+      data.currentItem = item;
+    },
     logData() {
       return data;
     },
@@ -199,7 +202,7 @@ const App = (function(ItemCtrl, UICtrl) {
 
       // Get item
       const itemToEdit = ItemCtrl.getItemById(id);
-      console.log(itemToEdit);
+      ItemCtrl.setCurrentItem(itemToEdit);
     }
 
     e.preventDefault();
