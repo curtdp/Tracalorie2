@@ -57,6 +57,9 @@ const ItemCtrl = (function() {
     setCurrentItem(item) {
       data.currentItem = item;
     },
+    getCurrentItem() {
+      return data.currentItem;
+    },
     logData() {
       return data;
     },
@@ -140,6 +143,14 @@ const UICtrl = (function() {
       document.querySelector(UISelectors.backBtn).style.display = "none";
       document.querySelector(UISelectors.addBtn).style.display = "inline";
     },
+    addItemToForm() {
+      document.querySelector(
+        UISelectors.itemNameInput,
+      ).value = ItemCtrl.getCurrentItem().name;
+      document.querySelector(
+        UISelectors.itemCaloriesInput,
+      ).value = ItemCtrl.getCurrentItem().calories;
+    },
     getSelectors() {
       return UISelectors;
     },
@@ -204,6 +215,9 @@ const App = (function(ItemCtrl, UICtrl) {
       const itemToEdit = ItemCtrl.getItemById(id);
       ItemCtrl.setCurrentItem(itemToEdit);
     }
+
+    // Add item to form
+    UICtrl.addItemToForm();
 
     e.preventDefault();
   };
