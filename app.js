@@ -50,6 +50,10 @@ const ItemCtrl = (function() {
       );
       return data.totalCalories;
     },
+    getItemById(id) {
+      // Loop trough items
+      return data.items.find(item => item.id === id);
+    },
     logData() {
       return data;
     },
@@ -184,7 +188,18 @@ const App = (function(ItemCtrl, UICtrl) {
   // Update item submit
   const itemUpdateSubmit = function(e) {
     if (e.target.classList.contains("edit-item")) {
-      console.log("test");
+      // Get list item id
+      const listId = e.target.parentNode.parentNode.id;
+
+      // Break into an array
+      const listIdArr = listId.split("-");
+
+      // Get actual id
+      const id = parseInt(listIdArr[1]);
+
+      // Get item
+      const itemToEdit = ItemCtrl.getItemById(id);
+      console.log(itemToEdit);
     }
 
     e.preventDefault();
