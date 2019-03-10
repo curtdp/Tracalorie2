@@ -150,6 +150,13 @@ const UICtrl = (function() {
       document.querySelector(
         UISelectors.itemCaloriesInput,
       ).value = ItemCtrl.getCurrentItem().calories;
+      UICtrl.showEditState();
+    },
+    showEditState() {
+      document.querySelector(UISelectors.updateBtn).style.display = "inline";
+      document.querySelector(UISelectors.deleteBtn).style.display = "inline";
+      document.querySelector(UISelectors.backBtn).style.display = "inline";
+      document.querySelector(UISelectors.addBtn).style.display = "none";
     },
     getSelectors() {
       return UISelectors;
