@@ -70,6 +70,18 @@ const ItemCtrl = (function() {
       itemToUpdate.calories = calories;
       return itemToUpdate;
     },
+    deleteItem(id) {
+      // Get ids
+      ids = data.items.map(item => {
+        return item.id;
+      });
+
+      // Get index
+      const index = ids.indexOf(id);
+
+      // Remove item
+      data.items.splice(index, 1);
+    },
     logData() {
       return data;
     },
@@ -186,6 +198,11 @@ const UICtrl = (function() {
         }
       });
     },
+    deleteListItem(id) {
+      const itemId = `#item-${id}`;
+      const item = document.querySelector(itemId);
+      item.remove();
+    },
     getSelectors() {
       return UISelectors;
     },
@@ -222,10 +239,36 @@ const App = (function(ItemCtrl, UICtrl) {
       .querySelector(UISelectors.updateBtn)
       .addEventListener("click", itemUpdateSubmit);
 
-    // Back button event
+    // Delete item event
     document
-      .querySelector(UISelectors.backBtn)
-      .addEventListener("click", UICtrl.clearEditState);
+      .querySelector(UISelectors.deleteBtn)
+      .addEventListener("click", itemDeleteSubmit);
+
+    // Back button event
+    document.querySelector(UISelectors.backBtn).addEventListener("click", e => {
+      UICtrl.clearEditState();
+      e.preventDefault();
+    });
+  };
+
+  const itemDeleteSubmit = function(e) {
+    e.preventDefault();
+    // Get current item
+    const currentItem = ItemCtrl.getCurrentItem();
+
+    // Delete current item
+    ItemCtrl.deleteItem(currentItem.id);
+
+    // Delete from UI
+    UICtrl.deleteListItem(currentItem.id);
+
+    // Get total calories
+    const totalCalories = ItemCtrl.getTotalCalories();
+
+    // Add total calories to UI
+    UICtrl.showTotalCalories(totalCalories);
+
+    UICtrl.clearEditState();
   };
 
   // Add item submit
@@ -267,10 +310,10 @@ const App = (function(ItemCtrl, UICtrl) {
       // Get item
       const itemToEdit = ItemCtrl.getItemById(id);
       ItemCtrl.setCurrentItem(itemToEdit);
-    }
 
-    // Add item to form
-    UICtrl.addItemToForm();
+      // Add item to form
+      UICtrl.addItemToForm();
+    }
 
     e.preventDefault();
   };
