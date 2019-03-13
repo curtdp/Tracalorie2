@@ -225,7 +225,7 @@ const App = (function(ItemCtrl, UICtrl) {
     // Back button event
     document
       .querySelector(UISelectors.backBtn)
-      .addEventListener("click", itemUpdateSubmit, UICtrl.clearEditState);
+      .addEventListener("click", UICtrl.clearEditState);
   };
 
   // Add item submit
