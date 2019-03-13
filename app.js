@@ -60,6 +60,15 @@ const ItemCtrl = (function() {
     getCurrentItem() {
       return data.currentItem;
     },
+    updateItem({ name, calories }) {
+      // Calories to number
+      calories = parseInt(calories);
+      let itemToUpdate = data.items.find(
+        item => data.currentItem.id === item.id,
+      );
+      itemToUpdate.name = name;
+      itemToUpdate.calories = calories;
+    },
     logData() {
       return data;
     },
@@ -188,6 +197,10 @@ const App = (function(ItemCtrl, UICtrl) {
     document
       .querySelector(UISelectors.itemList)
       .addEventListener("click", itemEditClick);
+
+    // Update Btn click event
+    document
+      .querySelector(UISelectors.updateBtn)
       .addEventListener("click", itemUpdateSubmit);
   };
 
@@ -234,6 +247,17 @@ const App = (function(ItemCtrl, UICtrl) {
 
     // Add item to form
     UICtrl.addItemToForm();
+
+    e.preventDefault();
+  };
+
+  // Update item submit
+  const itemUpdateSubmit = function(e) {
+    // Get item input
+    const input = UICtrl.getItemInput();
+
+    // Update item
+    const updatedItem = ItemCtrl.updateItem(input);
 
     e.preventDefault();
   };
