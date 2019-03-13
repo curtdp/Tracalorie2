@@ -68,6 +68,7 @@ const ItemCtrl = (function() {
       );
       itemToUpdate.name = name;
       itemToUpdate.calories = calories;
+      return itemToUpdate;
     },
     logData() {
       return data;
@@ -79,6 +80,7 @@ const ItemCtrl = (function() {
 const UICtrl = (function() {
   const UISelectors = {
     itemList: "#item-list",
+    listItems: "#item-list li",
     addBtn: ".add-btn",
     updateBtn: ".update-btn",
     deleteBtn: ".delete-btn",
@@ -166,6 +168,23 @@ const UICtrl = (function() {
       document.querySelector(UISelectors.deleteBtn).style.display = "inline";
       document.querySelector(UISelectors.backBtn).style.display = "inline";
       document.querySelector(UISelectors.addBtn).style.display = "none";
+    },
+    updateListItem(updatedItem) {
+      let listItems = document.querySelectorAll(UISelectors.listItems);
+
+      listItems.forEach(item => {
+        const itemId = item.getAttribute("id");
+        if (itemId === `item-${updatedItem.id}`) {
+          document.querySelector(`#${itemId}`).innerHTML = `
+          <strong>${updatedItem.name}:</strong> <em>${
+            updatedItem.calories
+          } Calories</em>
+          <button class="secondary-content">
+            <i class="fa fa-pencil edit-item"></i>
+          </button>
+          `;
+        }
+      });
     },
     getSelectors() {
       return UISelectors;
@@ -259,6 +278,9 @@ const App = (function(ItemCtrl, UICtrl) {
     // Update item
     const updatedItem = ItemCtrl.updateItem(input);
 
+    // Update UI
+
+    UICtrl.updateListItem(updatedItem);
     e.preventDefault();
   };
 
