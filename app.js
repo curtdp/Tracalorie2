@@ -179,6 +179,7 @@ const App = (function(ItemCtrl, UICtrl) {
     // Edit Btn click event
     document
       .querySelector(UISelectors.itemList)
+      .addEventListener("click", itemEditClick);
       .addEventListener("click", itemUpdateSubmit);
   };
 
